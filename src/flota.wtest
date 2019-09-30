@@ -1,0 +1,50 @@
+import flota.*
+test "pruebo la trafic" {
+	trafic.motor(bataton)
+	trafic.interior(comodo)
+	assert.equals(5200,trafic.peso())
+	assert.equals(5,trafic.capacidad())
+
+}
+test "dos dependencias"{
+	var deportes =new Dependencia(empleados=45)
+	var cultura=new Dependencia(empleados=31)
+	var cachito=new ChevroletCorsa(color=rojo)
+	deportes.agregarAFlota(cachito)
+	deportes.agregarAFlota(new ChevroletCorsa(color=azul))
+	deportes.agregarAFlota(new ChevroletCorsa(color=verde))
+	deportes.agregarAFlota(new RenaultKwid(tieneTanqueAdicional=true))
+	deportes.agregarAFlota(new AutoEspecial(capacidad=5,color=beige,velocidadMaxima=160,peso=1200))
+	cultura.agregarAFlota(cachito)
+	cultura.agregarAFlota(new RenaultKwid(tieneTanqueAdicional=true))
+	cultura.agregarAFlota(new RenaultKwid(tieneTanqueAdicional=true))
+	cultura.agregarAFlota(new RenaultKwid(tieneTanqueAdicional=false))
+	trafic.motor(bataton)
+	trafic.interior(popular)
+	cultura.agregarAFlota(trafic)
+	assert.equals(10700,cultura.pesoTotalFlota())
+	assert.equals(6450,deportes.pesoTotalFlota())
+	assert.that(deportes.estaBienEquipada())
+	assert.notThat(cultura.estaBienEquipada())
+	assert.equals(7,deportes.capacidadTotalEnColor(azul))
+	assert.equals(10,cultura.capacidadTotalEnColor(azul))
+	assert.equals(beige,deportes.colorDelRodadoMasRapido())
+	assert.equals(rojo,cultura.colorDelRodadoMasRapido())
+	assert.that(deportes.esGrande())
+	assert.notThat(cultura.esGrande())
+	assert.equals(25,deportes.capacidadFaltante())
+	assert.equals(5,cultura.capacidadFaltante())
+	
+	
+	}
+	//  el color del rodado más rápido, si es grande o no, y la capacidad faltante. 
+
+//Va una ayudita: la capacidad faltante de deportes es de 25 personas 
+//(la flota puede llevar: 12 personas en los 3 Corsa, más 3 del Kwid y 5 del auto especial;
+// total 20),
+// mientras que la de cultura es de 5 personas (puede llevar en total 26: 6 de los Kwid con tanque adicional, más 4 de la Kwid sin tanque, más 4 de cachito, más 12 de la Trafic dado que tiene el interior popular).	
+
+	
+	
+
+	

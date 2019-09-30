@@ -1,7 +1,7 @@
 
 	
 class ChevroletCorsa {
-  var property color
+  var property color=azul
   method capacidad() { return 4  }
   method velocidadMaxima(){return 150}
   method peso(){return 1300}
@@ -61,9 +61,9 @@ object pulenta {
 }
 
 class AutoEspecial {
-  var property color
+  var property color=azul
   var property capacidad
-  var property velocidadMaxima
+  var property velocidadMaxima=100
   var property peso
 
 }
@@ -72,23 +72,34 @@ class AutoEspecial {
 // sería como el depósito, maneja una colección de rodados
 class Dependencia {
 	var property flota=[]
-	var property empleados
+	var property empleados=10
 	method agregarAFlota(rodado){ flota.add(rodado)}
 	method quitarDeFlota(rodado){flota.remove(rodado)}
 	method pesoTotalFlota(){
 		return flota.sum({auto=>auto.peso()})}
 //pesoTotalFlota()`, la suma del peso de cada rodado afectado a la flota.
-    method estaBienEquipda(){
+    method estaBienEquipada(){
 //estaBienEquipada()`, es verdadero si la flota tiene al menos 3 rodados
 //, y además, _todos_ los rodados de la flota pueden ir al menos a 100 km/h.
-		return flota.count({auto=})
-- `capacidadTotalEnColor(color)`, la cantidad total de personas que puede transportar la flota afectada a la dependencia, considerando solamente los rodados del color indicado.
-- `colorDelRodadoMasRapido()`, eso.
-- `capacidadFaltante()`, que es el resultado de restar, de la cantidad de empleados, la capacidad sumada de los vehículos de la flota. 
-- `esGrande()`, la condición es que la dependencia tenga al menos 40 empleados y 5 rodados.
+	return flota.size()>2 and flota.all({auto=>auto.velocidadMaxima()>99}) }
 	
-	
-
+	method capacidadTotalEnColor(color){	
+//capacidadTotalEnColor(color)`, la cantidad total de personas que puede transportar
+// la flota afectada a la dependencia, considerando solamente los rodados del color indicado.
+	return flota.filter({auto=>auto.color()==color}).sum({auto=>auto.capacidad()})
+	}
+	method colorDelRodadoMasRapido(){
+		return flota.max({auto=>auto.velocidadMaxima()}).color()
+		}
+	method capacidadFaltante(){
+		// que es el resultado de restar, de la cantidad de empleados,
+		// la capacidad sumada de los vehículos de la flota.
+		return self.empleados() - flota.sum({auto=>auto.capacidad()})
+		} 
+	method esGrande(){
+		// la condición es que la dependencia tenga al menos 40 empleados y 5 rodados.
+		return self.empleados()>40 and flota.size()>4
+	}
 }
 
 // recordamos: los colores con objetos vacíos, no como String
@@ -96,10 +107,7 @@ object azul {}
 object rojo {}
 object verde {}
 object blanco{}
+object beige{}
 
 
-// un ejemplo de cómo configurar la trafic en un test
-test "pruebo la trafic" {
-  trafic.motor(bataton)
-}	
-}
+
