@@ -1,11 +1,26 @@
-
+import wollok.game.*
 	
 class ChevroletCorsa {
   var property color=azul
   method capacidad() { return 4  }
   method velocidadMaxima(){return 150}
   method peso(){return 1300}
-}
+//  var property posicion=[]
+  
+  //method moverseHacia(direccion){  
+  	//if (direccion==norte) { posicion.add(new Position(3,7))}
+  	//else if (direccion==sur) {posicion.add(new Position ((3,7).down(14))}
+  	//else if(direccion==este) {posicion.add(new Position(7,6))}
+  	//else {posicion.add(new Position((7,6).left(14))}	
+  //}
+}	
+  
+object norte{}
+object sur{}
+object este{}
+object oeste{}
+
+
 
 class RenaultKwid {
   var tieneTanqueAdicional
@@ -108,6 +123,32 @@ object rojo {}
 object verde {}
 object blanco{}
 object beige{}
+object negro{}
+
+class Pedidos{
+	var property laDistanciaARecorrer
+	var property tiempoMaximo=10
+	var property pasajeros
+	var property coloresIncompatibles=#{}
+	method velocidadRequerida(){return self.laDistanciaARecorrer()/self.tiempoMaximo()}
+	method puedeSatisfacer(auto){
+		return (auto.velocidadMaxima()> 10+self.velocidadRequerida())and (auto.capacidad()>=self.pasajeros()) and not
+		coloresIncompatibles.any({c=>c==auto.color()})
+	}
+	method acelerar(){
+		 self.tiempoMaximo(self.tiempoMaximo-1)
+		
+		
+	}
+		// disminuye en uno el tiempo máximo (p.ej. lo hace pasar de 8 horas a 7)
+	method relajar(){
+		var uno=self.tiempoMaximo()
+		
+		
+			//` que lo aumenta en uno (p.ej. lo hace pasar de 8 horas a 9).
+	
+	}
+}
 
 
 
